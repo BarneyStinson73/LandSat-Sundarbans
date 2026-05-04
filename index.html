@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Name Collage</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+  <h2>Name Collage</h2>
+
+  <input type="text" id="nameInput" placeholder="Enter your name" />
+  <button onclick="generate()">Generate</button>
+  <button onclick="downloadCollage()">Download</button>
+  <button onclick="generateQR()">QR</button>
+
+  <div id="preview" class="preview"></div>
+  <div id="qrcode"></div>
+</div>
+
+<!-- Modal -->
+<div id="modal" class="modal" onclick="closeModal()">
+  <img id="modalImg">
+</div>
+
+<!-- QR library -->
+<script src="qrcode.min.js"></script>
+
+<script src="app.js"></script>
+</body>
+</html>
