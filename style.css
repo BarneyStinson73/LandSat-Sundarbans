@@ -1,55 +1,82 @@
 body {
-  font-family: sans-serif;
-  text-align: center;
   margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: url("images/bg.jpg") no-repeat center center/cover;
+  color: white;
 }
 
+/* DARK OVERLAY */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: -1;
+}
+
+/* CONTAINER */
 .container {
-  padding: 20px;
+  padding: 30px 20px;
+  text-align: center;
 }
 
+/* INPUT */
 input {
-  padding: 10px;
+  padding: 12px;
+  width: 220px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
   margin: 10px;
-  width: 200px;
 }
 
+/* BUTTON */
 button {
-  padding: 10px;
+  padding: 10px 15px;
   margin: 5px;
+  border-radius: 8px;
+  border: none;
   cursor: pointer;
+  background: #00b894;
+  color: white;
+  font-weight: bold;
+  transition: 0.2s;
 }
 
-/* GRID COLLAGE */
+button:hover {
+  background: #019874;
+}
+
+/* PREVIEW ROW */
 .preview {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
-  gap: 8px;
-  max-width: 500px;
-  margin: 20px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
 }
 
+/* IMAGE */
 .preview img {
-  width: 100%;
-  height: 100px;
+  height: 120px;
   object-fit: cover;
-  border-radius: 10px;
+  border-radius: 8px;
+  margin: 2px;
   transition: transform 0.2s;
 }
 
 .preview img:hover {
-  transform: scale(1.08);
+  transform: scale(1.05);
 }
 
 /* MODAL */
 .modal {
   display: none;
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.8);
+  inset: 0;
+  background: rgba(0,0,0,0.9);
   justify-content: center;
   align-items: center;
 }

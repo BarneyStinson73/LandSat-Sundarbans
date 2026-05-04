@@ -53,26 +53,35 @@ function getImage(letter) {
 }
 
 function generate() {
-  const name = document.getElementById("nameInput").value.toUpperCase();
+  let name = document.getElementById("nameInput").value;
+
+  // remove spaces + non-letters
+  name = name.replace(/[^a-zA-Z]/g, "").toUpperCase();
+
   const container = document.getElementById("preview");
+  container.innerHTML = "";
 
-  container.innerHTML = "Generating...";
+  if (!name) return;
 
-  setTimeout(() => {
-    container.innerHTML = "";
+  const count = name.length;
 
-    name.split("").forEach(letter => {
-      const src = getImage(letter);
-      if (!src) return;
+  // dynamic width
+  const containerWidth = container.clientWidth || window.innerWidth;
+  const imgWidth = Math.max(50, Math.min(150, containerWidth / count));
 
-      const img = document.createElement("img");
-      img.src = src;
+  name.split("").forEach(letter => {
+    const src = getImage(letter);
+    if (!src) return;
 
-      img.onclick = () => openModal(src);
+    const img = document.createElement("img");
+    img.src = src;
 
-      container.appendChild(img);
-    });
-  }, 200);
+    img.style.width = imgWidth + "px";
+
+    img.onclick = () => openModal(src);
+
+    container.appendChild(img);
+  });
 }
 
 function openModal(src) {
@@ -91,14 +100,14 @@ function downloadCollage() {
   const images = document.querySelectorAll("#preview img");
   if (images.length === 0) return;
 
-  const cols = Math.ceil(Math.sqrt(images.length));
+  const count = images.length;
   const size = 150;
 
   const canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d");
 
-  canvas.width = cols * size;
-  canvas.height = cols * size;
+  canvas.width = count * size;
+  canvas.height = size;
 
   let loaded = 0;
 
@@ -107,13 +116,10 @@ function downloadCollage() {
     img.src = imgEl.src;
 
     img.onload = () => {
-      const x = (i % cols) * size;
-      const y = Math.floor(i / cols) * size;
-
-      ctx.drawImage(img, x, y, size, size);
+      ctx.drawImage(img, i * size, 0, size, size);
 
       loaded++;
-      if (loaded === images.length) {
+      if (loaded === count) {
         const link = document.createElement("a");
         link.download = "collage.png";
         link.href = canvas.toDataURL();
